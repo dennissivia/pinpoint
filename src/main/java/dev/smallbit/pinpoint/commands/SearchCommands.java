@@ -2,6 +2,7 @@ package dev.smallbit.pinpoint.commands;
 
 import dev.smallbit.pinpoint.models.Document;
 import dev.smallbit.pinpoint.models.ElasticSearchIndexer;
+import dev.smallbit.pinpoint.models.LuceneIndexer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -18,9 +19,11 @@ import java.util.HashMap;
 public class SearchCommands {
 
   @Autowired private final ElasticSearchIndexer elasticSearchIndexer;
+  @Autowired private final LuceneIndexer luceneIndexer;
 
-  public SearchCommands(ElasticSearchIndexer indexer) {
+  public SearchCommands(ElasticSearchIndexer indexer, LuceneIndexer luceneIndexer) {
     this.elasticSearchIndexer = indexer;
+    this.luceneIndexer = luceneIndexer;
   }
 
   @ShellMethod(key = "search", value = "Search for a term")
@@ -43,7 +46,10 @@ public class SearchCommands {
     var data = indexFiles(dir, glob);
     // test out ES
     elasticSearchIndexer.updateIndex(data);
-    return "Indexed " + data.size() + " files with ElasticSearch.";
+    System.out.println("Indexed " + data.size() + " files with ElasticSearch.");
+    luceneIndexer.updateIndex(data);
+    System.out.println("Indexed " + data.size() + " files with Lucene.");
+    return "finished indexing successfully";
   }
 
   // TODO: Can we just propagate the IOExceptions instead? We cant have partial results then, but it
