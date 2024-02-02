@@ -29,6 +29,9 @@ public class SearchCommands {
   @ShellMethod(key = "search", value = "Search for a term")
   public String search(@ShellOption String searchTerm) {
     var resultDoc = elasticSearchIndexer.search(searchTerm);
+    var resultDoc2 = luceneIndexer.search("content", searchTerm);
+    System.out.println(resultDoc2.get().id());
+
     if (resultDoc.isEmpty()) {
       return "No results found for: " + searchTerm;
     } else {
