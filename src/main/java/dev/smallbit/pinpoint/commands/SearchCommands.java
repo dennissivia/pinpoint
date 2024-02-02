@@ -26,13 +26,17 @@ public class SearchCommands {
   @ShellMethod(key = "search", value = "Search for a term")
   public String search(@ShellOption() String searchTerm) {
     var resultDoc = elasticSearchIndexer.search(searchTerm);
-
-    return "Found: "
-        + resultDoc.excerpt()
-        + " in "
-        + resultDoc.author()
-        + "'s work:"
-        + resultDoc.id();
+    if (resultDoc.isEmpty()) {
+      return "No results found for: " + searchTerm;
+    } else {
+      var document = resultDoc.get();
+      return "Found: "
+          + document.excerpt()
+          + " in "
+          + document.author()
+          + "'s work:"
+          + document.id();
+    }
   }
 
   @ShellMethod(key = "index", value = "Index the given directory")
