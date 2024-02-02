@@ -1,3 +1,19 @@
+## What is this?
+
+This app showcases document retrieval in Java.
+Examples include:
+
+* [ ] WIP: Elasticsearch Client
+* [ ] TODO: Lucene
+* [ ] TODO: A self implemented search using inverted index
+
+## Build the application
+
+Compile application to native image
+
+```bash
+./mvnw -Pnative native:compile -DskipTests=true
+```
 ## Purpose
 
 This repository is a minimal example of how including elasticsearch-rest-client causes issues with spring-shell.

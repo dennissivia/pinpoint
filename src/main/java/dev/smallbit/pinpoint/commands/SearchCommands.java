@@ -24,18 +24,14 @@ public class SearchCommands {
   }
 
   @ShellMethod(key = "search", value = "Search for a term")
-  public String search(@ShellOption() String searchTerm) {
+  public String search(@ShellOption String searchTerm) {
     var resultDoc = elasticSearchIndexer.search(searchTerm);
     if (resultDoc.isEmpty()) {
       return "No results found for: " + searchTerm;
     } else {
       var document = resultDoc.get();
-      return "Found: "
-          + document.excerpt()
-          + " in "
-          + document.author()
-          + "'s work:"
-          + document.id();
+      return String.format(
+          "Found: %s in %s's work: %s", document.excerpt(), document.author(), document.id());
     }
   }
 
