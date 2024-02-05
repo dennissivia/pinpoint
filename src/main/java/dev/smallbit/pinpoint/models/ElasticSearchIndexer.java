@@ -2,11 +2,11 @@ package dev.smallbit.pinpoint.models;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import co.elastic.clients.transport.rest_client.RestClientTransport;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.ElasticsearchException;
 import co.elastic.clients.elasticsearch.core.IndexResponse;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
-import co.elastic.clients.transport.rest_client.RestClientTransport;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.springframework.context.annotation.Bean;
@@ -72,7 +72,6 @@ public class ElasticSearchIndexer {
   }
 
   private void printShellTable(Document[] arr) {
-    // System.out.println("AARRRRRRR:" + arr);
     var arrarr = Arrays.stream(arr).map(d -> d.toArray()).toArray(String[][]::new);
 
     // add a heading row

@@ -1,5 +1,6 @@
 package dev.smallbit.pinpoint.commands;
 
+import org.springframework.shell.context.InteractionMode;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
