@@ -3,9 +3,11 @@
 This app showcases document retrieval in Java.
 Examples include:
 
-* [ ] WIP: Elasticsearch Client
-* [ ] TODO: Lucene
-* [ ] TODO: A self implemented search using inverted index
+* [x] Simple Elasticsearch Client
+    * Consider a more advanced example
+* [x] Simple Lucene Client
+    * Consider a more advanced example
+* [ ] TODO (next): A self implemented search using inverted index
 
 ## Get example data (gutenberg books)
 

@@ -1,5 +1,7 @@
 package dev.smallbit.pinpoint.models;
 
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
+import co.elastic.clients.elasticsearch.core.search.Hit;
 import org.apache.commons.lang3.ArrayUtils;
 
 import co.elastic.clients.transport.rest_client.RestClientTransport;
@@ -53,13 +55,22 @@ public class ElasticSearchIndexer {
                   s ->
                       s.index("gutenberg").query(q -> q.match(t -> t.field("content").query(term))),
                   Document.class);
-      System.out.println(response);
+      //      System.out.println(response);
+
+      var contentQuery = MatchQuery.of(m -> m.field("content").query(term))._toQuery();
+      var response2 =
+          restClient()
+              .search(
+                  s -> s.index("gutenberg").query(q -> q.bool(b -> b.must(contentQuery))),
+                  Document.class);
+      System.out.println("results using search: " + response.hits().hits().size());
+      System.out.println("results using match query: " + response2.hits().hits().size());
       // NOTE we only care about the first result for now. We might change this to return
       // SearchResult<Document> instead
-      if (response.hits().hits().size() > 0) {
+
+      if (!response.hits().hits().isEmpty()) {
         System.out.println(response.hits().hits().size());
-        Document[] arr =
-            response.hits().hits().stream().map(h -> h.source()).toArray(Document[]::new);
+        Document[] arr = response.hits().hits().stream().map(Hit::source).toArray(Document[]::new);
         printShellTable(arr);
 
         return Optional.of(response.hits().hits().get(0).source());
