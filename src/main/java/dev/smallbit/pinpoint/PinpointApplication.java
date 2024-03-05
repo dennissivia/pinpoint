@@ -18,8 +18,8 @@ public class PinpointApplication {
   @Bean
   public CommandLineRunner run(ApplicationContext appContext) {
     return args -> {
-      String[] beans = appContext.getBeanDefinitionNames();
-      Arrays.stream(beans).sorted().forEach(System.out::println);
+      // String[] beans = appContext.getBeanDefinitionNames();
+      // Arrays.stream(beans).sorted().forEach(System.out::println);
     };
   }
 }
