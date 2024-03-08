@@ -17,25 +17,28 @@ Their data page with many samples is at [nltk.org/nltk_data](https://www.nltk.or
 
 ## Build the application
 
-Compile application to native image
+Compile the app
+
+````bash
+./mvnw clean package -DskipTests=true
+````
+
+Build a native image with GraalVM for fast startup and low memory usage.
 
 ```bash
 ./mvnw -Pnative native:compile -DskipTests=true
 ```
-## Purpose
 
-This repository is a minimal example of how including elasticsearch-rest-client causes issues with spring-shell.
-
-## Running the app
-
-To run the app, build the jar and run it with the default help command:
+## Run the app
 
 ```bash
-./mvnw clean package -DskipTests=true
-java -jar target/shelltest-0.0.1-SNAPSHOT.jar help
+java -jar target/pinpoint-0.1.1.jar help
 ```
 
-If `elasticsearch-rest-client` is in the `pom.xml` the app does NOT finish. If that entry is removed it exits normally.
+Interactive commands:
+
+* build index: `index`
+* search gutenberg texts for a text: `search <text>`
 
 ## References
 
@@ -50,4 +53,4 @@ Currently, spring-shell does not exit when elastic.co java client is used.
 
 ## Future Ideas
 
-* Consider [Picocli](https://picocli.info/) for minimalistic command line interface
+* Consider [PicoCLI](https://picocli.info/) for minimalistic command line interface
