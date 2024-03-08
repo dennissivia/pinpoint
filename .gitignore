@@ -16,6 +16,7 @@ spring-shell.log
 
 *.log
 src/main/resources/data/gutenberg/*.txt
+src/main/resources/data/gutenberg.zip
 
 ### IntelliJ IDEA ###
 .idea
